@@ -12,13 +12,13 @@ exports.signUp = async (req, res) => {
         if (!email || !userName || !password) return res.status(400).json({ error: 'Missing required fields' });
 
         // Check if password is appropriate
-        if (password.length < 8) return res.status(400).json({ error: 'Password must be greater than 8 character' });
+        if (password.length < 8) return res.status(400).json({ success: false, message: 'Password must be greater than 8 character' });
 
         // Check if the user with the provided email already exists
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            return res.status(409).json({ error: 'User with this email already exists' });
+            return res.status(400).json({ success: false, message: "User with this email already exists" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
 
         // Check if required fields are missing
         if (!email || !password) {
-            return res.status(400).json({ error: 'Missing required fields' });
+            return res.status(400).json({ success: false, message: 'Missing required fields' });
         }
 
         // Find the user by email
@@ -54,19 +54,19 @@ exports.login = async (req, res) => {
 
         // Check if the user exists
         if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
 
         // Compare the provided password with the hashed password in the database
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
 
         // Generate a JWT token with the user ID
         const token = jwt.sign({ userId: user._id }, process.env.AUTH_SECRET_KEY, { expiresIn: '8d' });
-        return res.status(200).json({ message: 'Login successful', user, token });
+        return res.status(200).json({ success: true, message: 'Login successful', user, token })
 
     } catch (error) {
         console.error('Error logging in:', error);

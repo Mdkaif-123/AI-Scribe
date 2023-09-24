@@ -10,5 +10,4 @@ router.post('/save',verifyUserToken, controller.saveStory)
 router.put('/update/:id',verifyUserToken, controller.updateStory)
 router.delete('/delete/:id',verifyUserToken, controller.deleteStory)
 
-
 module.exports = router

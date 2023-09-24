@@ -11,6 +11,12 @@ const userRoute = require('./routes/userRoute')
 
 app.use(express.json())
 
+
+//* Using cors for security purpose
+const cors = require('cors');
+app.use(cors());
+
+
 // Connect to DB
 const connectToDB = require('./connection/connection')
 connectToDB()

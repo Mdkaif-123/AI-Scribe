@@ -23,7 +23,10 @@ const createServerRequest = async (method, url, data) => {
             return error.response.data;
         } else {
             console.log("Server Error:", error.message);
-            return "An error occurred while making the request";
+            return {
+                success:false,
+                message :"Server error, Try after sometime"
+            }
         }
         
     }

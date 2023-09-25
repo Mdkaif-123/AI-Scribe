@@ -9,6 +9,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { saveStory } from "../../../global/redux/slice/story"
 import { ShareModal } from "../Modal/ShareModal"
+import toast from "react-hot-toast"
+
+
+const option = {
+    style: {
+        background: localStorage.getItem("aiScribeTheme") === "dark" ? "#333" : "#fff",
+        color: localStorage.getItem("aiScribeTheme") === "dark" ? "#fff" : "#333",
+    }
+}
 
 function GeneratedStory() {
 
@@ -26,6 +35,7 @@ function GeneratedStory() {
     }
 
     const handleCopyToClipboard  =()=>{
+        toast.success("Copied to clipboard", option)
         navigator.clipboard.writeText(generatedStory.story)
     }
 
@@ -74,7 +84,7 @@ function GeneratedStory() {
                     <Rating value={rating} onChange={(value) => setRating(value)} name="rating" className="w-2 h-2 my-5" />
                 </Tooltip>
                 <div className="btn-group my-4 flex gap-4">
-                    <Button onClick={handleSaveStory} size="md" className="bg-[#3aa788]">{loading ? <Spinner className="h-3 w-3 mx-3 p-0" /> : "Save"}</Button>
+                    <Button onClick={handleSaveStory} size="md" className="bg-[#3aa788]">{loading ? <Spinner className="h-3 w-3 mx-1.5 p-0" /> : "Save"}</Button>
                     <Button onClick={handleOpenShareModal} size="md" className="bg-[#3aa788]">Share</Button>
                 </div>
                 <ShareModal title={generatedStory.title} description={generatedStory.story.slice(0, 500)} open={openShareModal} handleOpen={handleOpenShareModal} />

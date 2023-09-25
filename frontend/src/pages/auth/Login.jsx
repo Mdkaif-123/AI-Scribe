@@ -13,7 +13,7 @@ import LoginNavbar from '../../components/layout/Navbar/LoginNavbar';
 import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../global/redux/slice/story';
-import { ToastBar, Toaster } from 'react-hot-toast';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
 
 function Login() {
 
@@ -24,6 +24,7 @@ function Login() {
     const state = useSelector((state) => state.story)
 
     useEffect(() => {
+        if(!navigator.onLine) toast.error("No Internet Connection")
         if (localStorage.getItem("aiScribeAuthToken") !== null) navigate('/')
     },[state,navigate])
 

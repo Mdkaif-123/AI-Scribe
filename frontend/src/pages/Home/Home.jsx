@@ -6,7 +6,17 @@ import MainNavbar from "../../components/layout/Navbar/MainNavbar";
 import DrawerComponent from "../../components/layout/Drawer/DrawerComponent";
 import { useDispatch, useSelector } from 'react-redux'
 import { useSelect } from "@material-tailwind/react";
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+
+const option = {
+    style: {
+        background: localStorage.getItem("aiScribeTheme") === "dark" ? "#333" : "#fff",
+        color: localStorage.getItem("aiScribeTheme") === "dark" ? "#fff" : "#333",
+    }
+}
+
+
+
 function Home() {
 
     const [open, setOpen] = useState(false);
@@ -15,9 +25,11 @@ function Home() {
 
     const [desktopOption, setDesktopOption] = useState(true);
     const navigate = useNavigate()
-
+    
     useEffect(() => {
+        if(!navigator.onLine) toast.error("No Internet Connection", option)
         if (!localStorage.getItem("aiScribeAuthToken")) navigate('/login')
+        console.log(localStorage.getItem("aiScribeAuthToken"));
     }, [])
 
 

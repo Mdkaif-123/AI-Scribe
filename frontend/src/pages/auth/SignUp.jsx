@@ -60,7 +60,7 @@ function Login() {
                                     <Input color="white" className="dark:text-white" onChange={handleChange} id='password' name='password' value={credentials.password} type="password" size="lg" label="Password" autoComplete='false' required min={8} />
                                 </div>
                                 <Button onClick={handleSignUp} disabled={disable} className="mt-6 bg-[#65edc6] text-black flex justify-center rounded-full" fullWidth>
-                                    {state.loading ? <Spinner className='w-4 h-4 align-middle justify-center' /> : "Sign in"}
+                                    {state.isLoading ? <Spinner className='w-4 h-4 align-middle justify-center' /> : "Sign in"}
                                 </Button>
                             </form>
                         </Card>

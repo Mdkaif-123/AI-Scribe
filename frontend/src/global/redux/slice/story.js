@@ -10,6 +10,15 @@ import createServerRequest from '../../module/CreateServerRequest';
 
 
 
+const option = {
+    style: {
+        background: localStorage.getItem("aiScribeTheme") === "dark" ? "#333" : "#fff",
+        color: localStorage.getItem("aiScribeTheme") === "dark" ? "#fff" : "#333",
+    }
+}
+
+
+
 
 export const generateStory = createAsyncThunk('generateStory', async (promptData) => {
     const response = await createServerRequest("POST", `/story/generate`, promptData)
@@ -60,12 +69,6 @@ export const signUp = createAsyncThunk("signUp", async (credentials) => {
     return response
 })
 
-const option = {
-    style: {
-        background: localStorage.getItem("aiScribeTheme") === "dark" ? "#333" : "#fff",
-        color: localStorage.getItem("aiScribeTheme") === "dark" ? "#fff" : "#333",
-    }
-}
 
 const story = createSlice({
     name: "story",
@@ -151,6 +154,8 @@ const story = createSlice({
             builder.addCase(generateStory.fulfilled, (state, action) => {
                 state.isLoading = false
                 console.log("In generation action payload:", action)
+                if(!action.payload.success) return toast.error("Some error occurred, try again later", option)
+
                 toast.success("Story generated successfully", option)
                 const response = {
                     title: action.payload.title,

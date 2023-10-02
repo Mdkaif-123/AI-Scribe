@@ -34,7 +34,7 @@ function GeneratedStory() {
         dispatch(saveStory(storyData))
     }
 
-    const handleCopyToClipboard  =()=>{
+    const handleCopyToClipboard = () => {
         toast.success("Copied to clipboard", option)
         navigator.clipboard.writeText(generatedStory.story)
     }
@@ -87,7 +87,7 @@ function GeneratedStory() {
                     <Button onClick={handleSaveStory} size="md" className="bg-[#3aa788]">{loading ? <Spinner className="h-3 w-3 mx-1.5 p-0" /> : "Save"}</Button>
                     <Button onClick={handleOpenShareModal} size="md" className="bg-[#3aa788]">Share</Button>
                 </div>
-                <ShareModal title={generatedStory.title} description={generatedStory.story.slice(0, 500)} open={openShareModal} handleOpen={handleOpenShareModal} />
+                <ShareModal title={generatedStory.title} description={generatedStory.story ? generatedStory.story.slice(0, 500) : ""} open={openShareModal} handleOpen={handleOpenShareModal} />
             </div>}
             {loading && <dotlottie-player src="https://lottie.host/55a46466-07d1-45c2-a413-b17a62dea343/BIhJOfwc0B.json" background="transparent" speed="1" style={{ width: "200px", height: "200px", margin: "1.5rem auto" }} direction="1" mode="normal" loop autoplay></dotlottie-player>}
         </div>

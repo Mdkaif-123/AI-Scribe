@@ -29,7 +29,6 @@ function Home() {
     useEffect(() => {
         if(!navigator.onLine) toast.error("No Internet Connection", option)
         if (!localStorage.getItem("aiScribeAuthToken")) navigate('/login')
-        console.log(localStorage.getItem("aiScribeAuthToken"));
     }, [])
 
 
